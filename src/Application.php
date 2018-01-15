@@ -2,7 +2,7 @@
 
 namespace JohanQuiroga\Container;
 
-abstract class Provider
+class Application
 {
     /**
      * @var \JohanQuiroga\Container\Container
@@ -14,5 +14,11 @@ abstract class Provider
         $this->container = $container;
     }
 
-    abstract public function register();
+    public function registerProviders(array $providers)
+    {
+        foreach ($providers as $provider) {
+            $provider = new $provider($this->container);
+            $provider->register();
+        }
+    }
 }
